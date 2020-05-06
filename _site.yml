@@ -9,6 +9,8 @@ navbar:
       href: Teaching.html
     - text: "R-Stuff"
       href: regex.html
+    - text: "Data Viz"
+      href: DoctorWho.html 
   right:
     - icon: fa-envelope fa-lg
       href: mailto:davidabrocker@gmail.com
