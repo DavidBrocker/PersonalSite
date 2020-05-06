@@ -1,0 +1,49 @@
+---
+title: ''
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<br>
+
+#### Using ggplot for data visualization
+
+<br>
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(tidyverse)
+library(plotly)
+
+
+
+DoctorWho <- read_excel("/Users/davidbrocker/PersonalSite/DoctorWho_Ratings.xlsx")
+
+test_dfp <- DoctorWho %>% 
+  mutate(text=paste0("Season: ", Season, "\n","Episode: ", 
+                     EpisodeNumber,"\n","Title: ", Title))
+
+cols=c("Bad"="red2",
+       "Garbage" ="dodgerblue2",
+       "Great" ="greenyellow",
+       "Regular"="darkorange1", 
+       "Good" ="gold1")
+
+p <- ggplot(test_dfp,aes(factor(Season),factor(EpisodeNumber),fill=Quality,text=text))+
+      geom_tile(colour="black")+
+      xlab("Season")+
+      ylab("Episode Number")+
+      ggtitle("Doctor Who IMDb Ratings: 2005-2020")+
+      geom_text(aes(label=Ratings))+
+      theme_minimal(base_size = 15)+
+      scale_fill_manual(values = cols)
+
+pp <- ggplotly(p,tooltip = "text")
+
+pp
+
+
+```
